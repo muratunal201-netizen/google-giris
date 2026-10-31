@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giriş</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --card: #1a1d27;
+      --text: #e8eaf0;
+      --muted: #9aa0ad;
+      --line: #2a2e3a;
+      --accent: #4285f4;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 32px 28px;
+    }
+    h1 { font-size: 20px; margin: 0 0 6px; }
+    p.sub { color: var(--muted); margin: 0 0 24px; font-size: 14px; }
+    .gbtn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      color: #1f1f1f;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .gbtn:hover { filter: brightness(0.97); }
+    .gbtn svg { width: 18px; height: 18px; }
+    .profile { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .profile img { width: 48px; height: 48px; border-radius: 50%; }
+    .profile .name { font-weight: 600; }
+    .profile .email { color: var(--muted); font-size: 13px; }
+    .linkbtn {
+      background: none; border: none; color: var(--muted);
+      font-size: 13px; cursor: pointer; text-decoration: underline; padding: 0;
+    }
+    .hidden { display: none; }
+    .content {
+      margin-top: 8px; padding-top: 20px; border-top: 1px solid var(--line);
+    }
+    .badge {
+      display: inline-block; font-size: 12px; color: #7ee081;
+      background: rgba(126,224,129,0.1); padding: 3px 8px; border-radius: 6px;
+    }
+    .news img {
+      width: 100%; height: auto; border-radius: 12px;
+      display: block; margin-bottom: 14px; background: var(--line);
+    }
+    .news h2 { font-size: 18px; margin: 0 0 6px; line-height: 1.3; }
+    .news .meta { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
+    .news p { font-size: 14px; line-height: 1.6; margin: 0 0 12px; }
+  </style>
+</head>
+<body>
+  <!-- Yükleniyor durumu: kullanıcı fark etmesin diye sadece çok kısa görünür -->
+  <div id="loading" class="card">
+    <p class="sub" style="margin:0">Yükleniyor…</p>
+  </div>
+
+  <!-- Giriş ekranı: yalnızca oturum YOKSA gösterilir -->
+  <div id="login" class="card hidden">
+    <h1>Devam etmek için giriş yapın</h1>
+    <p class="sub">Google hesabınızla tek tıkla giriş. Şifre gerekmez.</p>
+    <button id="googleBtn" class="gbtn">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Google ile giriş yap
+    </button>
+    <p class="sub" style="margin:18px 0 0; font-size:12.5px; text-align:center; line-height:1.6">
+      <span style="display:inline-flex; align-items:center; gap:6px; color:#7ee081; font-weight:500">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Google ile güvenli giriş
+      </span><br>
+      Google ile güvenli giriş yapınız.
+    </p>
+  </div>
+
+  <!-- İçerik: oturum VARSA gösterilir (link'e basınca anında burası açılır) -->
+  <div id="app" class="card hidden">
+    <div class="profile">
+      <img id="avatar" alt="" />
+      <div>
+        <div class="name" id="name"></div>
+        <div class="email"><span id="email"></span> <span class="badge">doğrulanmış</span></div>
+      </div>
+    </div>
+    <button class="linkbtn" id="logoutBtn">Çıkış yap</button>
+
+    <div class="content">
+      <!-- ─── HABER İÇERİĞİ ───────────────────────────────────────────
+           Görseli değiştirmek için: images/ klasörüne kendi dosyanı koy
+           (örn. images/haber.jpg) ve aşağıdaki src'yi onunla değiştir.
+      ────────────────────────────────────────────────────────────────── -->
+      <article class="news">
+        <img src="images/haber.jpg"
+             alt="Haber görseli"
+             onerror="this.style.minHeight='180px';this.alt='Görsel bulunamadı — images/haber.jpg ekleyin'" />
+        <h2>Haber başlığı buraya gelecek</h2>
+        <p class="meta">31 Ekim 2026 · Kaynak</p>
+        <p>
+          Haber içeriğinin ilk paragrafı buraya yazılır. Bu metni kendi
+          haberinizle değiştirin. İstediğiniz kadar paragraf ekleyebilirsiniz.
+        </p>
+        <p>
+          İkinci paragraf. Giriş yapmış kullanıcılar bu içeriği görür;
+          giriş yapmayanlar yalnızca giriş ekranını görür.
+        </p>
+      </article>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm';
+
+    // ─── 1) Buraya kendi Supabase bilgilerinizi yapıştırın ───────────────
+    //     (anon key herkese açıktır, istemci tarafında bulunması normaldir)
+    const SUPABASE_URL = 'https://kavexpugzjszeyckidyw.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImthdmV4cHVnempzemV5Y2tpZHl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTM0Njg3NDksImV4cCI6MjEwOTA0NDc0OX0.c906GnCY2kZKwUC9NtkoQxKINsfGhbm6y0lyw-Q-KjE';
+    // ─────────────────────────────────────────────────────────────────────
+
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const el = (id) => document.getElementById(id);
+    const show = (id) => el(id).classList.remove('hidden');
+    const hide = (id) => el(id).classList.add('hidden');
+
+    // Oturum varsa içeriği göster, yoksa giriş ekranını göster
+    function render(session) {
+      hide('loading');
+      if (session?.user) {
+        const u = session.user;
+        const meta = u.user_metadata || {};
+        el('name').textContent = meta.full_name || meta.name || '—';
+        el('email').textContent = u.email || '—';
+        if (meta.avatar_url) el('avatar').src = meta.avatar_url;
+        hide('login');
+        show('app');
+      } else {
+        hide('app');
+        show('login');
+      }
+    }
+
+    // Kullanıcının genel IP'sini ücretsiz bir servisten al (tarayıcı kendisi veremez)
+    async function getIp() {
+      try {
+        const r = await fetch('https://api.ipify.org?format=json');
+        return (await r.json()).ip;
+      } catch { return null; }
+    }
+
+    // Her başarılı girişte bir log kaydı yaz (kim, ne zaman, hangi cihaz, hangi IP)
+    async function logLogin(session) {
+      try {
+        const ip = await getIp();
+        await supabase.from('login_events').insert({
+          user_id: session.user.id,
+          email: session.user.email,
+          name: session.user.user_metadata?.full_name || session.user.user_metadata?.name || null,
+          ip,
+          user_agent: navigator.userAgent
+        });
+      } catch (e) {
+        console.warn('Giriş logu yazılamadı:', e);
+      }
+    }
+
+    // Google ile giriş
+    el('googleBtn').addEventListener('click', async () => {
+      await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: window.location.href }
+      });
+    });
+
+    // Çıkış (test için)
+    el('logoutBtn').addEventListener('click', async () => {
+      await supabase.auth.signOut();
+    });
+
+    // Sayfa açılır açılmaz mevcut oturumu kontrol et → anında içerik
+    const { data: { session } } = await supabase.auth.getSession();
+    render(session);
+
+    // Oturum durumu değişince (giriş/çıkış) tekrar çiz; girişte logla.
+    // Hem taze giriş (SIGNED_IN) hem de oturum zaten varken (INITIAL_SESSION)
+    // kayıt atılır; aynı sekmede yenilemede mükerrer olmasın diye tek kayıt.
+    supabase.auth.onAuthStateChange((event, session) => {
+      render(session);
+      if (!session) return;
+      if (event === 'SIGNED_IN' || event === 'INITIAL_SESSION') {
+        const key = 'logged_' + session.user.id;
+        try {
+          if (!sessionStorage.getItem(key)) {
+            sessionStorage.setItem(key, '1');
+            logLogin(session);
+          }
+        } catch {
+          logLogin(session);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
