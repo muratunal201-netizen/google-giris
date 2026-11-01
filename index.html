@@ -59,9 +59,11 @@
     .overlay {
       position: fixed; inset: 0; z-index: 50;
       display: grid; place-items: center; padding: 16px;
-      background: rgba(10,12,18,0.72);
-      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+      background: rgba(8,10,15,0.95);
+      -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
     }
+    /* Doğrulama yokken scroll kilidi */
+    html.locked, body.locked { overflow: hidden !important; height: 100%; touch-action: none; }
     .overlay .card { max-width: 420px; }
     .field {
       width: 100%; padding: 12px 14px; margin-bottom: 12px;
@@ -180,14 +182,25 @@
     const el = (id) => document.getElementById(id);
 
     // Oturuma göre: giriş katmanını göster/gizle; içerik her zaman açık
+    let overlayTimer = null;
+    function lockScroll(on) {
+      document.documentElement.classList.toggle('locked', on);
+      document.body.classList.toggle('locked', on);
+    }
     function render(session) {
+      clearTimeout(overlayTimer);
       if (session?.user) {
         el('email').textContent = session.user.email || '';
         el('topbar').classList.remove('hidden');
         el('overlay').classList.add('hidden');   // katman kalkar → içerik serbest
+        lockScroll(false);                        // scroll açılır
       } else {
         el('topbar').classList.add('hidden');
-        el('overlay').classList.remove('hidden'); // içeriğin üstünde giriş katmanı
+        lockScroll(true);                         // doğrulama olmadan scroll kapalı
+        // İçerik 1 sn görünür kalsın, sonra giriş katmanı gelsin
+        overlayTimer = setTimeout(() => {
+          el('overlay').classList.remove('hidden');
+        }, 1000);
       }
     }
 
