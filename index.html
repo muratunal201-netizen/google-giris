@@ -12,6 +12,7 @@
       --muted: #9aa0ad;
       --line: #2a2e3a;
       --accent: #4285f4;
+      --brand: #e63946;
     }
     * { box-sizing: border-box; }
     html, body { margin: 0; min-height: 100%; }
@@ -92,9 +93,76 @@
     .pbtn:hover { filter: brightness(1.08); }
     .pbtn:disabled { opacity: .6; cursor: default; }
     .msg { font-size: 13px; margin: 14px 0 0; line-height: 1.5; min-height: 18px; }
+
+    /* Haber sitesi navbarı (görsel) */
+    .topstrip {
+      background: #0c0e14; border-bottom: 1px solid var(--line);
+      font-size: 12px; color: var(--muted);
+    }
+    .topstrip .inner {
+      max-width: 1100px; margin: 0 auto; padding: 6px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topstrip .inner a { color: var(--muted); text-decoration: none; }
+    .nav { position: sticky; top: 0; z-index: 40; background: #14161e; border-bottom: 1px solid var(--line); }
+    .nav .inner {
+      max-width: 1100px; margin: 0 auto; display: flex; align-items: center;
+      gap: 18px; padding: 12px 16px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 9px; font-weight: 800;
+      font-size: 20px; letter-spacing: -.4px; color: var(--text); white-space: nowrap;
+    }
+    .logo .mark {
+      background: var(--brand); color: #fff; border-radius: 7px;
+      padding: 3px 8px; font-size: 16px; font-weight: 900;
+    }
+    .nav-links { display: flex; gap: 20px; flex: 1; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); border-bottom: 2px solid var(--brand); padding-bottom: 2px; }
+    .search {
+      display: flex; align-items: center; gap: 8px; background: #0f1117;
+      border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; min-width: 190px;
+    }
+    .search input { background: none; border: none; outline: none; color: var(--text); font-size: 13px; width: 100%; }
+    .search input::placeholder { color: var(--muted); }
+    .search svg { color: var(--muted); flex: none; }
+    @media (max-width: 760px) {
+      .nav-links { display: none; }
+      .search { min-width: 0; }
+      .logo { font-size: 18px; }
+    }
   </style>
 </head>
 <body>
+  <!-- ÜST ŞERİT (görsel) -->
+  <div class="topstrip">
+    <div class="inner">
+      <span>1 Kasım 2026, Cumartesi · Lefkoşa 24°</span>
+      <span><a href="#">Künye</a> · <a href="#">İletişim</a> · <a href="#">Reklam</a></span>
+    </div>
+  </div>
+
+  <!-- NAVBAR (görsel) -->
+  <nav class="nav">
+    <div class="inner">
+      <div class="logo"><span class="mark">H</span>Haber<span style="color:var(--brand)">KKTC</span></div>
+      <div class="nav-links">
+        <a href="#" class="active">Gündem</a>
+        <a href="#">Politika</a>
+        <a href="#">Ekonomi</a>
+        <a href="#">Spor</a>
+        <a href="#">Magazin</a>
+        <a href="#">Dünya</a>
+      </div>
+      <div class="search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" placeholder="Haber ara…" />
+      </div>
+    </div>
+  </nav>
+
   <!-- HABER İÇERİĞİ — anında görünür (statik), JS beklemez -->
   <div class="wrap">
     <div class="topbar hidden" id="topbar">
