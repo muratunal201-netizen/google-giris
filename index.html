@@ -21,7 +21,7 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       padding: 24px 16px;
     }
-    .wrap { max-width: 640px; margin: 0 auto; }
+    .wrap { max-width: 820px; margin: 0 auto; }
     .card {
       width: 100%;
       background: var(--card);
@@ -54,6 +54,19 @@
     .news h2 { font-size: 22px; margin: 0 0 8px; line-height: 1.3; }
     .news .meta { color: var(--muted); font-size: 13px; margin: 0 0 16px; }
     .news p { font-size: 15px; line-height: 1.7; margin: 0 0 14px; }
+    /* Başlığın görsel üzerine bindiği hero alanı */
+    .hero { position: relative; margin-bottom: 18px; border-radius: 12px; overflow: hidden; background: var(--line); }
+    .hero img { margin: 0; border-radius: 0; display: block; width: 100%; height: auto; }
+    .hero .cap {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 56px 24px 22px;
+      background: linear-gradient(to top, rgba(0,0,0,.88), rgba(0,0,0,.35) 55%, rgba(0,0,0,0));
+    }
+    .hero h2 {
+      font-size: clamp(27px, 5.2vw, 40px); line-height: 1.15; margin: 0;
+      color: #fff; text-shadow: 0 2px 14px rgba(0,0,0,.55);
+    }
+    .hero .meta { color: #d6dae4; margin: 10px 0 0; font-size: 13px; }
 
     /* Giriş katmanı (içeriğin ÜSTÜNDE) */
     .overlay {
@@ -91,18 +104,41 @@
 
     <article class="news card">
       <!-- Görseller: images/ klasörüne koyup src'leri değiştir (örn. images/sifa-1.jpg) -->
-      <img src="images/sifa-1.jpg"
-           alt="Şifa Çika"
-           onerror="this.style.minHeight='200px';this.alt='Görsel ekleyin — images/sifa-1.jpg'" />
-
-      <h2>Şifa Çika'nın Sakladığı Sır Sonunda Ortaya Çıktı</h2>
-      <p class="meta">1 Kasım 2026 · Haber KKTC</p>
+      <div class="hero">
+        <img src="images/sifa-1.jpg"
+             alt="Şifa Çika"
+             onerror="this.style.minHeight='260px';this.alt='Görsel ekleyin — images/sifa-1.jpg'" />
+        <div class="cap">
+          <h2>Şifa Çika'nın Sakladığı Sır Sonunda Ortaya Çıktı</h2>
+          <p class="meta">1 Kasım 2026 · Haber KKTC</p>
+        </div>
+      </div>
 
       <p>
-        Günlerdir herkes aynı soruyu soruyordu: Şifa Çika'nın yıllardır sakladığı
-        o sır neymiş? Sonunda ortaya çıktı — ve açıkçası kimse beklediği şeyle
-        karşılaşmadı. Çünkü o “sır”, <strong>karşılık beklemeden yaptığı iyiliklerden</strong>
-        başka bir şey değildi. Onu tanıyan herkesin ortak cümlesi de bu zaten:
+        Herkes günlerdir fısıldıyordu; kimi kahvede, kimi iş çıkışı, kimi
+        telefonun öbür ucunda hep aynı cümleyi kuruyordu: <em>“Duydun mu, Şifa
+        Çika'nın bir sırrı varmış…”</em> Kimse tam olarak ne olduğunu bilmiyor,
+        ama herkesin bir tahmini vardı. Konuştukça büyüyen, büyüdükçe daha da
+        merak uyandıran bir fısıltıydı bu. Öyle ki, adı geçtiğinde sohbetler
+        aniden kesiliyor, gözler birbirini arıyor, herkes bir diğerinin ne
+        bildiğini ölçmeye çalışıyordu.
+      </p>
+
+      <p>
+        Peki yıllardır bu kadar özenle saklanan şey neydi? Günlerce konuşuldu,
+        tartışıldı, üstüne bahisler bile girildi derler. Kimileri büyük bir
+        servetten, kimileri saklı bir geçmişten, kimileri ise kimsenin
+        bilmediği bir hikâyeden söz ediyordu. Ama işin doğrusu, gerçek ortaya
+        çıktığında <strong>kimse beklediği şeyle karşılaşmadı</strong> — ve
+        belki de bu yüzden herkesi çarptı.
+      </p>
+
+      <p>
+        Çünkü o koca “sır”, aslında gözlerin tam önünde, yıllardır sessizce
+        duruyordu: <strong>karşılık beklemeden yapılan iyilikler.</strong> Ne bir
+        gösteriş, ne bir beklenti, ne de bir teşekkür arzusu. Sadece, kimse
+        bakmıyorken bile iyi kalabilme hâli. Onu tanıyan herkesin ortak cümlesi de
+        tam bu noktada çıkıyor ağızlardan:
         <strong>“Bu nedir böyle, bu kadar da iyi olunur mu?”</strong>
       </p>
 
